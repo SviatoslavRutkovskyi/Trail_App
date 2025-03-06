@@ -8,6 +8,8 @@ import java.awt.event.*;
 
 public class RegisterUser {
     private JFrame frame;
+
+    // test
     private JLabel nameLabel;
     private JLabel phoneLabel;
     private JLabel emailLabel;

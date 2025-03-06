@@ -1,0 +1,30 @@
+Charlene Jarrell & Sviatoslav Rutkovskyi (Project 10)
+TCSS 445
+Winter 2025
+
+FINAL PROJECT SUBMISSION: README FOR TRAIL DATABASE UI
+
+
+DESIGN DETAILS
+
+UI Program Language: Java
+DBMS: mySQL
+Operating Systems Tested On: macOS (ARM), Windows
+
+
+SETUP INSTRUCTIONS
+
+1) Run the SQL file in mySQL to create the database schema and records
+2) Open the Java file in your preferred IDE (we used IntelliJ)
+3) At the top of the Main class, look for the following line where the instance for the database connection
+   is created:
+
+   connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project10_db", "root", "1231");
+
+4) Ensure the port number, "localhost:3306", matches your local mySQL connection
+5) Change the password from "1231" to your mySQL root password
+6) Run the program. A small window should popup called "Trail Database".
+
+
+NAVIGATING THE UI
+...

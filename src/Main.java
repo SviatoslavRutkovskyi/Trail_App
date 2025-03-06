@@ -36,7 +36,7 @@ public class Main {
         frame.add(userButton);
         frame.setVisible(true);
 
-        // temporary until new button and action listener at setup:
+        // temporary until new button and action listener are set up:
         RegisterUser testRegistration = new RegisterUser();
 
         trailButton.addActionListener(e -> {

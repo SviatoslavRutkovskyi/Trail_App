@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Main {
-    private static final Connection connection;
+    public static final Connection connection;
 
     static {
         try {
@@ -26,7 +26,6 @@ public class Main {
         frame.setTitle("Trail Database");
 
         JTable table = new JTable();
-
         JButton trailButton = new JButton("View Trails");
         trailButton.setSize(200, 100);
         JButton userButton = new JButton("View Users");
@@ -56,10 +55,16 @@ public class Main {
                 throw new RuntimeException(ex);
             }
         });
+//        userButton.addActionListener(e -> {
+//            try {
+//                DefaultTableModel model = runQuery("SELECT * FROM user");
+//                table.setModel(model);
+//            } catch (SQLException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        });
+    }
 
-
-
-        }
     private static DefaultTableModel runQuery(String sqlQuery) throws SQLException {
 
         Statement statement = connection.createStatement();

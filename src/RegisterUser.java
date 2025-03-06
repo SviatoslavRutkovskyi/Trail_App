@@ -1,3 +1,7 @@
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,58 +16,28 @@ public class RegisterUser {
     private JTextField emailTextField;
     private JButton saveButton;
     private JButton cancelButton;
+    private JPanel panel;
 
     public RegisterUser() {
         frame = new JFrame();
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         frame.setLayout(new BorderLayout());
         frame.setSize(350, 300);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setTitle("User Registration");
         frame.add(panel);
 
-        createComponents(panel);
+//        createComponents(panel);
+        panel.setLayout(null);
+        createInsert(new String[]{"name", "phone", "email"}, "USER");
+//        createInsert(new String[]{"user_id", "trail_id", "date_review", "trail_rating", "review_text"}, "USER_REVIEW");
+
 
         frame.setVisible(true);
     }
 
     private void createComponents(JPanel panel) {
         panel.setLayout(null);
-
-        nameLabel = new JLabel("Name: ");
-        nameLabel.setBounds(10,20, 80, 25);
-        nameTextField = new JTextField(20);
-        nameTextField.setBounds(100, 20, 165, 25);
-        panel.add(nameLabel);
-        panel.add(nameTextField);
-
-        phoneLabel = new JLabel("Phone: ");
-        phoneLabel.setBounds(10, 50, 80, 25);
-        phoneTextField = new JTextField(15);
-        phoneTextField.setBounds(100, 50, 165, 25);
-        panel.add(phoneLabel);
-        panel.add(phoneTextField);
-
-        emailLabel = new JLabel("Email: ");
-        emailLabel.setBounds(10, 80, 80, 25);
-        emailTextField = new JTextField(30);
-        emailTextField.setBounds(100, 80, 165, 25);
-        panel.add(emailLabel);
-        panel.add(emailTextField);
-
-        saveButton = new JButton("Save");
-        saveButton.setSize(200, 100);
-        saveButton.setBounds(100, 130, 80, 25);
-        saveButton.setActionCommand("Save");
-        saveButton.addActionListener(new buttonListener());
-        panel.add(saveButton);
-
-        cancelButton = new JButton("Cancel");
-        cancelButton.setSize(200, 100);
-        cancelButton.setBounds(180, 130, 80, 25);
-        cancelButton.setActionCommand("Cancel");
-        cancelButton.addActionListener(new buttonListener());
-        panel.add(cancelButton);
     }
 
     private class buttonListener implements ActionListener {
@@ -82,5 +56,66 @@ public class RegisterUser {
 
     private void insertData() {
         // insert data into table
+    }
+    private void createInsert(String[] labelNames, String table) {
+        // insert data into table
+        JLabel[] lableArray =  new JLabel[labelNames.length];
+        System.out.println(Arrays.toString(labelNames));
+        JTextField[] textFieldArray = new JTextField[labelNames.length];
+        for (int i = 0; i < labelNames.length; i++) {
+            lableArray[i] = new JLabel(labelNames[i]);
+            lableArray[i].setBounds(10,20 + (i * 30), 80, 25);
+            textFieldArray[i] = new JTextField(20);
+            textFieldArray[i].setBounds(100, 20 + (i * 30), 165, 25);
+            panel.add(lableArray[i]);
+            panel.add(textFieldArray[i]);
+        }
+        saveButton = new JButton("Save");
+        saveButton.setSize(200, 100);
+        saveButton.setBounds(100, 20 + (labelNames.length * 30), 80, 25);
+        saveButton.setActionCommand("Save");
+        saveButton.addActionListener(e -> {
+            String query = "INSERT INTO " + table +  "(";
+//            String query = "INSERT INTO " + table + "(";
+            for (int i = 0; i < lableArray.length; i++) {
+                query += lableArray[i].getText();
+                if (i != lableArray.length - 1) {
+                    query += ", ";
+                }
+            }
+            query += ") VALUES("; //"?, ?, ?, ?);";
+            for (int i = 0; i < textFieldArray.length; i++) {
+                query += "?";
+                if (i != textFieldArray.length - 1) {
+                    query += ", ";
+                }
+            }
+            query += ");";
+            System.out.println(query);
+            try {
+                PreparedStatement ps = Main.connection.prepareStatement(query);
+                for (int i = 0; i < textFieldArray.length; i++) {
+                    ps.setString(i + 1, textFieldArray[i].getText());
+                }
+                ps.addBatch();
+                ps.executeBatch();
+
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            frame.dispose();
+        });
+        panel.add(saveButton);
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.setSize(200, 100);
+        cancelButton.setBounds(180, 20 + (labelNames.length * 30), 80, 25);
+        cancelButton.setActionCommand("Cancel");
+//        cancelButton.addActionListener(new buttonListener());
+        cancelButton.addActionListener(e -> {
+
+            frame.dispose();
+        });
+        panel.add(cancelButton);
     }
 }

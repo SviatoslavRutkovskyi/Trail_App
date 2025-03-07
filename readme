@@ -16,7 +16,15 @@ SETUP INSTRUCTIONS
 
 1) Run the SQL file, "Project10_queries_MODIFIED.sql", in mySQL to create the database schema and records
 2) Open the Java file, "Main.java:, in your preferred IDE (we used IntelliJ)
-3) Ensure the JAR file, "mysql-connector-j-9.2.0.jar", is in the project
+3) Ensure the JAR file, "mysql-connector-j-9.2.0.jar", is in the project.
+
+   Note, if using IntelliJ, you must add the JAR dependency with the following steps:
+            a) File > Project Structure... > Modules
+            b) Click the +, then "Add JARs or Directories"
+            c) Select the .jar provided in our Project10_zip folder
+            d) Click Apply
+   If using a different IDE, you will need to lookup how to add dependency for your IDE.
+
 4) At the top of the Main class, look for the following line where the instance for the database connection
    is created:
 

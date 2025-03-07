@@ -35,8 +35,9 @@ View Table:     Many of the tables can be viewed by selecting the table from the
 Add Record:     A new record can be inserted into some of the tables. This is done by selecting the table from the
                 second drop-down menu and clicking "Add". A new window will popup to input the data for the record.
                 The data inputted must match the format of the other records in that table. For example, when
-                inserting a new user review, the date_reviewed must be in the format YYYY-MM-DD. Once all text fields
-                have a valid input, click "Save" and the record will be added to the table.
+                inserting a new user review, the date_reviewed must be in the format YYYY-MM-DD. Also, a the user_id
+                and trail_id must already exist in the USER and TRAIL tables for them to be used in a new record.
+                Once all text fields have a valid input, click "Save" and the record will be added to the table.
 
 Show Table with Filter: The third drop-down menu provides options for filtering some of the tables by a given
                         parameter. Select the desired option, type a value in the text field to filter by, then click
